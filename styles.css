@@ -295,7 +295,7 @@ body.settings-open .settings-panel {
   width: clamp(168px, 19.6vw, 266px);
   height: auto;
   filter: brightness(0) invert(1);
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .eyebrow,
@@ -935,6 +935,10 @@ body.example-open .example-page {
 
   .contact-form {
     padding: 16px;
+  }
+
+  .contact-form .example-link {
+    display: none;
   }
 
   .booster-card {
