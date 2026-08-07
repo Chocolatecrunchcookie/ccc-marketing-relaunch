@@ -5,209 +5,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta
       name="description"
-      content="CCC relanza su comunicacion para productos estructurados agro: cobertura, originacion y trazabilidad comercial."
+      content="CCC disena y acompana estrategias de cobertura y productos estructurados para el mercado agro."
     />
     <title>CCC | Estructurados Agro</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header class="site-header">
-      <a class="brand" href="#inicio" aria-label="CCC inicio">
-        <span class="brand-mark">CCC</span>
-        <span class="brand-text">Estructurados Agro</span>
-      </a>
-      <nav aria-label="Principal">
-        <a href="#enfoque">Enfoque</a>
-        <a href="#productos">Productos</a>
-        <a href="#proceso">Proceso</a>
-        <a href="#contacto">Contacto</a>
-      </nav>
-    </header>
+    <canvas id="networkCanvas" aria-hidden="true"></canvas>
 
-    <main>
-      <section id="inicio" class="hero">
-        <canvas id="marketCanvas" aria-hidden="true"></canvas>
-        <div class="hero-copy">
-          <p class="eyebrow">Relanzamiento CCC</p>
-          <h1>Estructurados agro para operar precio, cobertura y margen con mas precision.</h1>
-          <p class="hero-lede">
-            Comunicacion comercial, producto y workflow para transformar estrategias OTC en
-            soluciones claras para productores, acopios, originadores y mesas de cobertura.
-          </p>
-          <div class="hero-actions">
-            <a class="button primary" href="#contacto">Iniciar conversacion</a>
-            <a class="button secondary" href="#productos">Ver estructuras</a>
-          </div>
-        </div>
-        <div class="hero-panel" aria-label="Resumen operativo">
-          <span>Pipeline inicial</span>
-          <strong>Put OTC · Acumulador · Step Up · Digital Booster</strong>
-          <dl>
-            <div>
-              <dt>Foco</dt>
-              <dd>Mercado interno agro</dd>
-            </div>
-            <div>
-              <dt>Base</dt>
-              <dd>Cobertura + trazabilidad</dd>
-            </div>
-            <div>
-              <dt>Etapa</dt>
-              <dd>Relanzamiento marketing</dd>
-            </div>
-          </dl>
-        </div>
-      </section>
-
-      <section id="enfoque" class="section intro">
-        <div>
-          <p class="eyebrow">Nueva narrativa</p>
-          <h2>CCC no vende complejidad: la traduce en decisiones comerciales accionables.</h2>
-        </div>
-        <p>
-          La oportunidad esta en unir una capa comercial simple con una capa operativa seria:
-          referencias de mercado, pricing, reglas de fijacion, aprobacion de riesgo, hedge plan
-          y registro. El sitio presenta esa promesa sin sobreactuar tecnologia ni ocultar el
-          rigor que necesita una estructura agro.
+    <main class="page-shell">
+      <section class="content" aria-labelledby="headline">
+        <img class="logo" src="./logo_CCC.svg" alt="Chocolate Crunch Cookie" />
+        <p class="eyebrow">Estructurados agro</p>
+        <h1 id="headline">Cobertura, originacion y estructuras de precio para el mercado agro.</h1>
+        <p class="lede">
+          En CCC ayudamos a transformar escenarios de mercado en decisiones comerciales claras:
+          pisos, techos, acumuladores, boosters y estrategias OTC con foco en trazabilidad,
+          riesgo y ejecucion.
         </p>
       </section>
 
-      <section class="section proof-grid" aria-label="Pilares de la propuesta">
-        <article>
-          <span>01</span>
-          <h3>Claridad comercial</h3>
-          <p>Explicaciones simples de piso, techo, duplo, prima y condiciones de volumen.</p>
-        </article>
-        <article>
-          <span>02</span>
-          <h3>Disciplina operativa</h3>
-          <p>Workflow preparado para validacion, documentacion, seguimiento diario y back office.</p>
-        </article>
-        <article>
-          <span>03</span>
-          <h3>Cobertura vinculada</h3>
-          <p>Cada estructura debe conectar definicion comercial, referencia y plan de hedge.</p>
-        </article>
-      </section>
-
-      <section id="productos" class="section products">
-        <div class="section-heading">
-          <p class="eyebrow">Portfolio inicial</p>
-          <h2>Cuatro estructuras para ordenar la conversacion de mercado.</h2>
-        </div>
-        <div class="product-grid">
-          <article class="product">
-            <span class="product-code">P01</span>
-            <h3>Put OTC</h3>
-            <p>Proteccion de precio con piso definido y prima explicita.</p>
-            <ul>
-              <li>Piso de referencia</li>
-              <li>Expiracion definida</li>
-              <li>Precio efectivo transparente</li>
-            </ul>
-          </article>
-          <article class="product">
-            <span class="product-code">P02</span>
-            <h3>Acumulador</h3>
-            <p>Fijacion diaria condicionada por piso, techo y regla de doble volumen.</p>
-            <ul>
-              <li>Lifecycle diario</li>
-              <li>Volumen acumulado</li>
-              <li>Monitoreo de hedge</li>
-            </ul>
-          </article>
-          <article class="product">
-            <span class="product-code">P03</span>
-            <h3>Step Up</h3>
-            <p>Mejora de precio inicial con condicion sobre referencia y volumen.</p>
-            <ul>
-              <li>Precio mejorado</li>
-              <li>Trigger al vencimiento</li>
-              <li>Compromiso explicado</li>
-            </ul>
-          </article>
-          <article class="product">
-            <span class="product-code">P04</span>
-            <h3>Digital Booster</h3>
-            <p>Estructura con condicion digital y posible multiplicador de volumen.</p>
-            <ul>
-              <li>Duplo definido</li>
-              <li>Payoff discontinuo</li>
-              <li>Riesgo comunicado</li>
-            </ul>
-          </article>
-        </div>
-      </section>
-
-      <section id="proceso" class="section process">
-        <div class="section-heading">
-          <p class="eyebrow">Del pitch a la operacion</p>
-          <h2>Una comunicacion que anticipa el producto que viene.</h2>
-        </div>
-        <ol class="timeline">
-          <li>
-            <span>Definir</span>
-            <p>Producto, subyacente, volumen, moneda, vencimiento y regla comercial.</p>
-          </li>
-          <li>
-            <span>Cotizar</span>
-            <p>Snapshot de mercado, prima, piso, techo, trigger y sensibilidad esperada.</p>
-          </li>
-          <li>
-            <span>Validar</span>
-            <p>Riesgo, margen, liquidez, documentacion y aprobacion previa a ejecucion.</p>
-          </li>
-          <li>
-            <span>Monitorear</span>
-            <p>Fijaciones, hedge, diferencias, eventos y trazabilidad de todo el ciclo.</p>
-          </li>
-        </ol>
-      </section>
-
-      <section class="section quote">
-        <p>
-          “El nuevo CCC debe explicar estructuras complejas con lenguaje comercial, pero
-          comportarse internamente como una plataforma de control.”
-        </p>
-      </section>
-
-      <section id="contacto" class="section contact">
+      <form class="contact-form" aria-label="Formulario de contacto">
         <div>
-          <p class="eyebrow">Acceso temprano</p>
-          <h2>Armemos el nuevo canal comercial de CCC.</h2>
-          <p>
-            Esta primera version sirve para presentar la tesis, validar mensaje y preparar la
-            captura de oportunidades antes de migrar a produccion en Wix.
-          </p>
+          <p class="form-kicker">Contacto</p>
+          <h2>Hablemos de una estrategia</h2>
         </div>
-        <form class="lead-form" data-supabase-ready="pending">
-          <label>
-            Nombre
-            <input type="text" name="name" autocomplete="name" placeholder="Tu nombre" />
-          </label>
-          <label>
-            Email
-            <input type="email" name="email" autocomplete="email" placeholder="nombre@empresa.com" />
-          </label>
-          <label>
-            Interes principal
-            <select name="interest">
-              <option>Productos estructurados</option>
-              <option>Cobertura agro</option>
-              <option>Alianza comercial</option>
-              <option>Demo del producto</option>
-            </select>
-          </label>
-          <button type="submit">Solicitar contacto</button>
-          <p class="form-note">La captura se conectara al proyecto Supabase del relanzamiento.</p>
-        </form>
-      </section>
+        <label>
+          Nombre
+          <input type="text" name="name" autocomplete="name" placeholder="Tu nombre" required />
+        </label>
+        <label>
+          Email
+          <input
+            type="email"
+            name="email"
+            autocomplete="email"
+            placeholder="nombre@empresa.com"
+            required
+          />
+        </label>
+        <label>
+          Mensaje
+          <textarea
+            name="message"
+            rows="4"
+            placeholder="Contanos que producto, cobertura o necesidad queres conversar"
+          ></textarea>
+        </label>
+        <button type="submit">Enviar consulta</button>
+        <p class="form-note">Material preliminar. No constituye recomendacion financiera.</p>
+      </form>
     </main>
-
-    <footer class="footer">
-      <span>CCC · Estructurados Agro</span>
-      <span>Material comercial preliminar. No constituye recomendacion financiera.</span>
-    </footer>
 
     <script src="./script.js"></script>
   </body>
