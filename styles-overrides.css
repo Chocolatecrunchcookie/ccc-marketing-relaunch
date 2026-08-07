@@ -31,14 +31,14 @@
   min-height: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   padding-top: 0;
   padding-bottom: 0;
 }
 
 h1 {
   max-width: none;
-  margin-bottom: var(--title-subtitle-gap);
+  margin-bottom: 0;
   font-size: clamp(42px, calc(var(--shared-card-height) * 0.108), 70px);
   line-height: 0.96;
 }
@@ -47,6 +47,7 @@ h1 {
   max-width: none;
   font-size: clamp(17px, calc(var(--shared-card-height) * 0.036), 21px);
   line-height: 1.38;
+  margin-bottom: 0;
 }
 
 .contact-form {
@@ -167,6 +168,10 @@ body.example-open .booster-card {
     height: auto;
     display: block;
     padding-top: 98px;
+  }
+
+  h1 {
+    margin-bottom: var(--title-subtitle-gap);
   }
 
   .contact-form {
