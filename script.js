@@ -4,7 +4,6 @@ const form = document.querySelector(".contact-form");
 const settingsToggle = document.querySelector(".settings-toggle");
 const panelClose = document.querySelector(".panel-close");
 const showExampleButton = document.querySelector("#showExampleBtn");
-const backHomeButton = document.querySelector("#backHomeBtn");
 const replayExampleButton = document.querySelector("#replayExampleBtn");
 
 const defaults = {
@@ -494,7 +493,9 @@ window.addEventListener("touchend", () => {
 settingsToggle.addEventListener("click", () => setPanel(true));
 panelClose.addEventListener("click", () => setPanel(false));
 showExampleButton.addEventListener("click", () => setExample(true));
-backHomeButton.addEventListener("click", () => setExample(false));
+document.addEventListener("click", (event) => {
+  if (event.target.closest("#backHomeBtn")) setExample(false);
+});
 replayExampleButton.addEventListener("click", () => {
   animateBooster(document.querySelector(".bstd-wrap"));
 });
