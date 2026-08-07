@@ -255,24 +255,17 @@ body.settings-open .settings-panel {
 
 .brand-lockup {
   width: fit-content;
-  display: inline-flex;
-  align-items: center;
-  gap: 14px;
+  display: block;
   margin-bottom: clamp(58px, 11vh, 112px);
   filter: drop-shadow(0 22px 58px rgb(0 0 0 / 0.42));
-}
-
-.brand-lockup span {
-  color: var(--blue);
-  font-size: clamp(20px, 2.6vw, 32px);
-  font-weight: 850;
-  letter-spacing: 0;
-  white-space: nowrap;
+  transform: translateY(-50px);
 }
 
 .logo-mark {
-  width: 58px;
-  height: 58px;
+  display: block;
+  width: clamp(240px, 28vw, 380px);
+  height: auto;
+  filter: brightness(0) invert(1);
 }
 
 .eyebrow,
@@ -433,10 +426,6 @@ h1 {
 
   .brand-lockup {
     margin-bottom: 34px;
-  }
-
-  .brand-lockup span {
-    white-space: normal;
   }
 
   .lede {
