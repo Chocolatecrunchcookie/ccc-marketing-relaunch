@@ -60,9 +60,9 @@ const defaults = {
   cursorForce: 84,
   gravity: 65,
   escapeSpeed: 20,
-  textColor: "#ffffff",
+  textColor: "#999999",
   lineColor: "#00e5e5",
-  lineWidth: 3,
+  lineWidth: 1.5,
   curveAmount: 0,
 };
 
@@ -366,7 +366,7 @@ function syncControls() {
   controls.count.value = config.count;
   controls.appear.value = config.appearInterval;
   controls.speed.value = config.speed;
-  controls.distance.value = config.linkDistance;
+  controls.distance.value = config.distance;
   controls.cut.value = config.cutRadius;
   controls.cursorForce.value = config.cursorForce;
   controls.gravity.value = config.gravity;
