@@ -40,14 +40,14 @@
   padding-bottom: 0;
 }
 
-h1 {
+.content h1 {
   max-width: none;
   margin-bottom: 0;
   font-size: var(--hero-title-size);
   line-height: 0.96;
 }
 
-.lede {
+.content .lede {
   max-width: none;
   font-size: var(--hero-subtitle-size);
   line-height: 1.38;
@@ -104,12 +104,12 @@ body.example-open .booster-card {
     left: clamp(42px, 5.3vw, 72px);
   }
 
-  h1 {
+  .content h1 {
     max-width: none;
     line-height: 0.96;
   }
 
-  .lede {
+  .content .lede {
     max-width: none;
     line-height: 1.35;
   }
@@ -162,7 +162,7 @@ body.example-open .booster-card {
     align-self: start;
   }
 
-  h1 {
+  .content h1 {
     margin-bottom: var(--hero-title-size);
     font-size: var(--hero-title-size);
     line-height: 0.96;
@@ -174,7 +174,7 @@ body.example-open .booster-card {
     padding: clamp(20px, 3.4vw, 28px);
   }
 
-  .lede {
+  .content .lede {
     line-height: 1.38;
   }
 }
@@ -192,7 +192,7 @@ body.example-open .booster-card {
     padding-top: 98px;
   }
 
-  h1 {
+  .content h1 {
     margin-bottom: var(--hero-title-size);
   }
 
@@ -200,11 +200,11 @@ body.example-open .booster-card {
     height: auto;
   }
 
-  h1 {
+  .content h1 {
     font-size: var(--hero-title-size);
   }
 
-  .lede {
+  .content .lede {
     font-size: var(--hero-subtitle-size);
   }
 
