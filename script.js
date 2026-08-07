@@ -366,7 +366,7 @@ function syncControls() {
   controls.count.value = config.count;
   controls.appear.value = config.appearInterval;
   controls.speed.value = config.speed;
-  controls.distance.value = config.distance;
+  controls.distance.value = config.linkDistance;
   controls.cut.value = config.cutRadius;
   controls.cursorForce.value = config.cursorForce;
   controls.gravity.value = config.gravity;
