@@ -116,7 +116,7 @@ const maxSpeed = 4;
 function fitHeroTypography() {
   if (!heroContent || !headline || !lede) return;
 
-  if (window.innerWidth <= 920) {
+  if (window.innerWidth <= 1120) {
     headline.style.fontSize = "";
     return;
   }
@@ -397,7 +397,7 @@ function syncControls() {
   controls.gravity.value = config.gravity;
   controls.escape.value = config.escapeSpeed;
   controls.textColor.value = config.textColor;
-  controls.lineColor.value = config.lineColor;
+  controls.lineColor = controls.lineColor;
   controls.lineWidth.value = config.lineWidth;
   controls.curve.value = config.curveAmount;
   syncLabels();
