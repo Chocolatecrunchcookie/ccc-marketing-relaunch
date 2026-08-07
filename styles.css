@@ -72,12 +72,12 @@ body::after {
   top: 16px;
   left: 16px;
   z-index: 30;
-  width: 42px;
-  height: 42px;
+  width: 21px;
+  height: 21px;
   display: grid;
   place-items: center;
   border: 1px solid rgb(255 255 255 / 0.16);
-  border-radius: 8px;
+  border-radius: 4px;
   color: rgb(247 248 255 / 0.86);
   background: rgb(255 255 255 / 0.07);
   cursor: pointer;
