@@ -72,19 +72,21 @@ body::after {
   top: 16px;
   left: 16px;
   z-index: 30;
-  width: 21px;
-  height: 21px;
+  width: 42px;
+  height: 42px;
   display: grid;
   place-items: center;
   border: 1px solid rgb(255 255 255 / 0.16);
-  border-radius: 4px;
+  border-radius: 8px;
   color: rgb(247 248 255 / 0.86);
   background: rgb(255 255 255 / 0.07);
   cursor: pointer;
   backdrop-filter: blur(10px);
+  opacity: 0.2;
 }
 
 .settings-toggle:hover {
+  opacity: 1;
   background: rgb(255 255 255 / 0.13);
 }
 
