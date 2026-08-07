@@ -3,9 +3,11 @@
   --ink: #f7f8ff;
   --muted: rgb(247 248 255 / 0.72);
   --line: rgb(255 255 255 / 0.16);
-  --panel: rgb(7 10 25 / 0.58);
-  --panel-strong: rgb(8 12 32 / 0.72);
+  --panel: rgb(5 7 18 / 0.62);
+  --panel-strong: rgb(5 7 18 / 0.84);
   --accent: #ff7a2f;
+  --cyan: #00e5e5;
+  --panel-width: min(360px, calc(100vw - 28px));
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--ink);
@@ -25,9 +27,18 @@ body {
 body {
   overflow-x: hidden;
   background:
-    radial-gradient(circle at 20% 18%, rgb(44 65 140 / 0.42), transparent 30rem),
-    radial-gradient(circle at 82% 74%, rgb(255 122 47 / 0.18), transparent 24rem),
+    radial-gradient(circle at 20% 18%, rgb(44 65 140 / 0.28), transparent 30rem),
+    radial-gradient(circle at 82% 74%, rgb(0 229 229 / 0.12), transparent 28rem),
     #02040c;
+}
+
+.site-stage {
+  min-height: 100vh;
+  transition: transform 260ms ease;
+}
+
+body.settings-open .site-stage {
+  transform: translateX(calc(var(--panel-width) + 22px));
 }
 
 #networkCanvas {
@@ -45,8 +56,185 @@ body::after {
   z-index: 1;
   pointer-events: none;
   background:
-    linear-gradient(90deg, rgb(2 4 12 / 0.84) 0%, rgb(2 4 12 / 0.34) 54%, rgb(2 4 12 / 0.74) 100%),
-    radial-gradient(circle at 47% 50%, transparent 0%, rgb(2 4 12 / 0.54) 72%);
+    linear-gradient(90deg, rgb(2 4 12 / 0.86) 0%, rgb(2 4 12 / 0.28) 54%, rgb(2 4 12 / 0.74) 100%),
+    radial-gradient(circle at 42% 35%, transparent 0%, rgb(2 4 12 / 0.52) 72%);
+}
+
+.settings-toggle,
+.panel-close,
+.reset-settings,
+.contact-form button {
+  font: inherit;
+}
+
+.settings-toggle {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 30;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 8px;
+  color: rgb(247 248 255 / 0.86);
+  background: rgb(255 255 255 / 0.07);
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.settings-toggle:hover {
+  background: rgb(255 255 255 / 0.13);
+}
+
+body.settings-open .settings-toggle {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.settings-panel {
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 35;
+  width: var(--panel-width);
+  max-height: calc(100vh - 28px);
+  overflow-y: auto;
+  padding: 18px;
+  color: #f3f3f3;
+  background: var(--panel);
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 12px;
+  box-shadow: 0 28px 90px rgb(0 0 0 / 0.38);
+  backdrop-filter: blur(9px) saturate(1.18);
+  opacity: 0;
+  transform: translateX(calc(-100% - 20px));
+  transition:
+    opacity 230ms ease,
+    transform 260ms ease;
+}
+
+body.settings-open .settings-panel {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.panel-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  margin-bottom: 16px;
+}
+
+.panel-heading h2 {
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+
+.panel-close {
+  width: 30px;
+  height: 30px;
+  border: 0;
+  border-radius: 8px;
+  color: rgb(255 255 255 / 0.7);
+  background: transparent;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.panel-close:hover {
+  color: #fff;
+  background: rgb(255 255 255 / 0.08);
+}
+
+.settings-section {
+  margin: 20px 0 12px;
+  padding-top: 16px;
+  border-top: 1px solid rgb(255 255 255 / 0.1);
+  color: rgb(255 255 255 / 0.46);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+.settings-section:first-of-type {
+  margin-top: 0;
+  padding-top: 0;
+  border-top: 0;
+}
+
+.setting-field {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 18px;
+  color: rgb(255 255 255 / 0.76);
+  font-size: 15px;
+  font-weight: 740;
+}
+
+.setting-field span {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.setting-field strong {
+  color: rgb(255 255 255 / 0.76);
+  font-variant-numeric: tabular-nums;
+}
+
+.setting-field small {
+  color: rgb(255 255 255 / 0.42);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.setting-field textarea,
+.setting-field input[type="color"] {
+  width: 100%;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 7px;
+  background: rgb(0 0 0 / 0.32);
+}
+
+.setting-field textarea {
+  min-height: 116px;
+  padding: 10px;
+  resize: vertical;
+  color: #fff;
+  font: 15px "SF Mono", Menlo, Consolas, monospace;
+  line-height: 1.3;
+}
+
+.setting-field input[type="range"] {
+  width: 100%;
+  accent-color: #f4f4f4;
+}
+
+.setting-field input[type="color"] {
+  height: 36px;
+  padding: 3px;
+}
+
+.reset-settings {
+  width: 100%;
+  min-height: 44px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 8px;
+  color: rgb(255 255 255 / 0.82);
+  background: rgb(255 255 255 / 0.06);
+  cursor: pointer;
+  font-weight: 780;
+}
+
+.reset-settings:hover {
+  background: rgb(255 255 255 / 0.1);
 }
 
 .page-shell {
@@ -70,16 +258,13 @@ body::after {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  padding: 12px 18px 12px 12px;
-  margin-bottom: clamp(42px, 9vh, 88px);
-  border-radius: 8px;
-  background: rgb(255 255 255 / 0.92);
-  filter: drop-shadow(0 24px 60px rgb(0 0 0 / 0.42));
+  margin-bottom: clamp(58px, 11vh, 112px);
+  filter: drop-shadow(0 22px 58px rgb(0 0 0 / 0.42));
 }
 
 .brand-lockup span {
   color: var(--blue);
-  font-size: clamp(18px, 2.5vw, 28px);
+  font-size: clamp(20px, 2.6vw, 32px);
   font-weight: 850;
   letter-spacing: 0;
   white-space: nowrap;
@@ -149,8 +334,8 @@ h1 {
   font-weight: 720;
 }
 
-input,
-textarea {
+.contact-form input,
+.contact-form textarea {
   width: 100%;
   border: 1px solid rgb(255 255 255 / 0.15);
   border-radius: 6px;
@@ -161,38 +346,37 @@ textarea {
   outline: none;
 }
 
-input {
+.contact-form input {
   min-height: 46px;
 }
 
-textarea {
+.contact-form textarea {
   resize: vertical;
   min-height: 110px;
 }
 
-input:focus,
-textarea:focus {
+.contact-form input:focus,
+.contact-form textarea:focus {
   border-color: rgb(255 122 47 / 0.78);
   box-shadow: 0 0 0 3px rgb(255 122 47 / 0.13);
 }
 
-button {
+.contact-form button {
   min-height: 48px;
   border: 0;
   border-radius: 6px;
   padding: 0 18px;
   color: #fff;
   background: var(--blue);
-  font: inherit;
   font-weight: 800;
   cursor: pointer;
 }
 
-button:hover {
+.contact-form button:hover {
   background: #3550ac;
 }
 
-button:disabled {
+.contact-form button:disabled {
   cursor: default;
   background: #294079;
 }
@@ -204,6 +388,18 @@ button:disabled {
   line-height: 1.45;
 }
 
+@media (max-width: 1100px) {
+  body.settings-open .site-stage {
+    transform: translateX(0);
+  }
+
+  body.settings-open::after {
+    background:
+      linear-gradient(90deg, rgb(2 4 12 / 0.9) 0%, rgb(2 4 12 / 0.54) 100%),
+      radial-gradient(circle at 42% 35%, transparent 0%, rgb(2 4 12 / 0.62) 72%);
+  }
+}
+
 @media (max-width: 920px) {
   body {
     overflow-y: auto;
@@ -213,7 +409,7 @@ button:disabled {
     min-height: 100svh;
     grid-template-columns: 1fr;
     align-items: start;
-    padding-top: 36px;
+    padding-top: 78px;
   }
 
   .content {
@@ -232,7 +428,7 @@ button:disabled {
 @media (max-width: 560px) {
   .page-shell {
     gap: 28px;
-    padding: 24px 16px;
+    padding: 78px 16px 24px;
   }
 
   .brand-lockup {
