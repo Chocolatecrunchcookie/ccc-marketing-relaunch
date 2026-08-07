@@ -25,8 +25,9 @@
 
 .content {
   align-self: end;
-  width: 100%;
+  width: calc(100% - 50px);
   max-width: none;
+  margin-left: 20px;
   height: var(--shared-card-height);
   min-height: 0;
   display: flex;
@@ -152,6 +153,8 @@ body.example-open .booster-card {
   }
 
   .content {
+    width: 100%;
+    margin-left: 0;
     height: auto;
     display: block;
     align-self: start;
@@ -181,6 +184,8 @@ body.example-open .booster-card {
   }
 
   .content {
+    width: 100%;
+    margin-left: 0;
     height: auto;
     display: block;
     padding-top: 98px;
