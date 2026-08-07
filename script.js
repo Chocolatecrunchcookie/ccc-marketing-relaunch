@@ -115,33 +115,8 @@ const maxSpeed = 4;
 
 function fitHeroTypography() {
   if (!heroContent || !headline || !lede) return;
-
-  if (window.innerWidth <= 1120) {
-    headline.style.fontSize = "";
-    heroContent.style.removeProperty("--hero-title-size");
-    return;
-  }
-
-  heroContent.style.removeProperty("--hero-title-size");
   headline.style.fontSize = "";
-  heroContent.style.setProperty("--hero-title-size", "24px");
-
-  const heroHeight = heroContent.clientHeight;
-
-  let low = 24;
-  let high = Math.min(150, heroHeight * 0.32);
-
-  for (let i = 0; i < 12; i += 1) {
-    const mid = (low + high) / 2;
-    heroContent.style.setProperty("--hero-title-size", `${mid}px`);
-    if (heroContent.scrollHeight <= heroHeight + 1) {
-      low = mid;
-    } else {
-      high = mid;
-    }
-  }
-
-  heroContent.style.setProperty("--hero-title-size", `${Math.floor(low)}px`);
+  heroContent.style.removeProperty("--hero-title-size");
 }
 
 function speedToPxPerFrame(value) {
