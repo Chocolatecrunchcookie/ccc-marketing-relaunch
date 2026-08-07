@@ -96,49 +96,144 @@
     <div class="site-stage">
       <canvas id="networkCanvas" aria-hidden="true"></canvas>
 
-      <main class="page-shell">
-        <section class="content" aria-labelledby="headline">
-          <div class="brand-lockup" aria-label="Chocolate Crunch Cookie">
-            <img class="logo-mark" src="./logo_CCC.svg" alt="Chocolate Crunch Cookie" />
-          </div>
-          <h1 id="headline">Nuevas estructuras de precio en el agro para mejores márgenes.</h1>
-          <p class="lede">
-            En CCC ayudamos a transformar escenarios de mercado en decisiones comerciales claras
-            con foco en trazabilidad, riesgo y ejecución.
-          </p>
-        </section>
+      <div class="site-track">
+        <main class="page-shell">
+          <section class="content" aria-labelledby="headline">
+            <div class="brand-lockup" aria-label="Chocolate Crunch Cookie">
+              <img class="logo-mark" src="./logo_CCC.svg" alt="Chocolate Crunch Cookie" />
+            </div>
+            <h1 id="headline">Nuevas estructuras de precio en el agro para mejores márgenes.</h1>
+            <p class="lede">
+              En CCC ayudamos a transformar escenarios de mercado en decisiones comerciales claras
+              con foco en trazabilidad, riesgo y ejecución.
+            </p>
+          </section>
 
-        <form class="contact-form" aria-label="Formulario de contacto">
-          <div>
-            <p class="form-kicker">Contacto</p>
-            <h2>Hablemos de una estrategia</h2>
-          </div>
-          <label>
-            Nombre
-            <input type="text" name="name" autocomplete="name" placeholder="Tu nombre" required />
-          </label>
-          <label>
-            Email
-            <input
-              type="email"
-              name="email"
-              autocomplete="email"
-              placeholder="nombre@empresa.com"
-              required
-            />
-          </label>
-          <label>
-            Mensaje
-            <textarea
-              name="message"
-              rows="4"
-              placeholder="Contanos que producto, cobertura o necesidad queres conversar"
-            ></textarea>
-          </label>
-          <button type="submit">Enviar consulta</button>
-          <p class="form-note">Material preliminar. No constituye recomendacion financiera.</p>
-        </form>
-      </main>
+          <form class="contact-form" aria-label="Formulario de contacto">
+            <div>
+              <p class="form-kicker">Contacto</p>
+              <h2>Hablemos de una estrategia</h2>
+            </div>
+            <label>
+              Nombre
+              <input type="text" name="name" autocomplete="name" placeholder="Tu nombre" required />
+            </label>
+            <label>
+              Email
+              <input
+                type="email"
+                name="email"
+                autocomplete="email"
+                placeholder="nombre@empresa.com"
+                required
+              />
+            </label>
+            <label>
+              Mensaje
+              <textarea
+                name="message"
+                rows="4"
+                placeholder="Contanos que producto, cobertura o necesidad queres conversar"
+              ></textarea>
+            </label>
+            <button type="submit">Enviar consulta</button>
+            <button class="example-link" type="button" id="showExampleBtn">Ver ejemplo</button>
+            <p class="form-note">Material preliminar. No constituye recomendacion financiera.</p>
+          </form>
+        </main>
+
+        <section class="example-page" id="boosterExample" aria-labelledby="exampleHeadline">
+          <article class="booster-card">
+            <button class="example-back" type="button" id="backHomeBtn" aria-label="Volver al inicio">
+              Volver
+            </button>
+
+            <div class="booster-head">
+              <p class="form-kicker">Ejemplo</p>
+              <h2 id="exampleHeadline">Booster</h2>
+              <p>Análisis informativo de escenarios. No es recomendación de inversión.</p>
+            </div>
+
+            <div class="booster-grid">
+              <div class="bst-row"><span>Posición</span><b>Soja 5/2027</b></div>
+              <div class="bst-row"><span>Inicio</span><b>07 de agosto de 2026</b></div>
+              <div class="bst-row"><span>Expiración de la estrategia</span><b>26 de abril de 2027</b></div>
+              <div class="bst-row"><span>Días</span><b>262</b></div>
+              <div class="bst-row"><span>Futuro subyacente</span><b>338,8 U$S/tn</b></div>
+            </div>
+
+            <div class="bst-big">
+              <div><span>Duplo</span><b>352</b><small>U$S / tn.</small></div>
+              <div><span>Cierre</span><b>332</b><small>U$S / tn.</small></div>
+            </div>
+
+            <div class="bstd-wrap">
+              <svg viewBox="286 58 372 268" class="bstd" aria-label="Diagrama del Booster">
+                <g class="bstd-lines">
+                  <line x1="383.4" y1="138.09" x2="626.79" y2="138.09" class="bstd-l duplo"/>
+                  <line x1="383.4" y1="192.68" x2="626.79" y2="192.68" class="bstd-l"/>
+                  <line x1="383.4" y1="260.81" x2="626.79" y2="260.81" class="bstd-l"/>
+                  <text x="374" y="134" class="bstd-lab duplo">DUPLO</text>
+                  <text x="374" y="189" class="bstd-lab">FORWARD</text>
+                  <text x="374" y="257" class="bstd-lab">CIERRE</text>
+                  <text x="374" y="148" class="bstd-val duplo">352</text>
+                  <text x="374" y="203" class="bstd-val">338,8</text>
+                  <text x="374" y="271" class="bstd-val">332</text>
+                </g>
+                <circle cx="383.4" cy="192.68" r="5.4" class="bstd-dot0"/>
+
+                <g class="bstd-acto" data-acto="1">
+                  <path class="bstd-curva" d="M 383.34,192.67 C 397.38,192.67 408.76,204.05 408.76,218.09 L 408.76,225.32 C 408.76,239.36 420.14,250.74 434.18,250.74 L 434.18,250.74 C 448.22,250.74 459.60,239.35 459.60,225.32 L 459.60,147.65 C 459.60,133.61 470.98,122.23 485.03,122.23 L 485.03,122.23 C 499.07,122.23 510.45,133.61 510.45,147.65 L 510.45,260.81"/>
+                  <polygon class="bstd-cruz" points="516.78 264.89 512.33 260.43 516.78 255.97 514.91 254.1 510.45 258.56 505.99 254.1 504.12 255.97 508.57 260.43 504.12 264.89 505.99 266.76 510.45 262.31 514.91 266.76 516.78 264.89"/>
+                  <g class="bstd-dur">
+                    <path d="M385.09,300.92v4.06c0,2.82,2.28,5.1,5.1,5.1h117.7c2.82,0,5.1-2.28,5.1-5.1v-4.06"/>
+                    <text x="449" y="322">DURACIÓN AL CIERRE</text>
+                  </g>
+                </g>
+
+                <g class="bstd-acto" data-acto="2">
+                  <path class="bstd-curva" d="M 383.34,192.67 C 397.38,192.67 408.76,204.05 408.76,218.09 L 408.76,225.32 C 408.76,239.36 420.14,250.74 434.18,250.74 L 434.18,250.74 C 448.22,250.74 459.60,239.35 459.60,225.32 L 459.60,147.64 C 459.60,133.60 470.98,122.22 485.03,122.22 L 485.03,122.22 C 499.07,122.22 510.45,133.60 510.45,147.64 L 510.45,205.71 C 510.45,219.76 521.83,231.14 535.87,231.14 L 535.87,231.14 C 549.91,231.14 561.29,219.76 561.29,205.72 L 561.29,193.46 L 561.29,193.62 C 562.38,180.60 573.29,170.36 586.59,170.36 L 586.59,170.36 L 586.59,170.36 L 589.8,170.31"/>
+                  <circle class="bstd-dotf" cx="589.8" cy="170.31" r="5.4"/>
+                  <path class="bstd-brazo" d="M589.8,170.31l25.01-.1c2.82,0,5.1-2.16,5.1-4.98l-.12-22.19"/>
+                  <g class="bstd-burb"><circle cx="603.24" cy="153.18" r="9.55"/><text x="603.24" y="156.6">x1</text></g>
+                  <path class="bstd-flecha" d="M619.78,133.5l-4.2,-6.4h8.4z"/>
+                  <g class="bstd-dur">
+                    <path d="M385.09,300.92v4.06c0,2.82,2.28,5.1,5.1,5.1h194.09c2.82,0,5.1-2.28,5.1-5.1v-4.06"/>
+                    <text x="487" y="322">DURACIÓN A LA EXPIRACIÓN DE LA ESTRATEGIA</text>
+                  </g>
+                </g>
+
+                <g class="bstd-acto" data-acto="3">
+                  <path class="bstd-curva" d="M 383.34,192.66 C 397.38,192.66 408.76,204.04 408.76,218.08 L 408.76,225.31 C 408.76,239.35 420.14,250.73 434.18,250.73 L 434.18,250.73 C 448.22,250.73 459.60,239.35 459.60,225.31 L 459.60,147.64 C 459.60,133.6 470.98,122.21 485.03,122.21 L 485.03,122.21 C 499.07,122.21 510.45,133.6 510.45,147.64 L 510.45,205.70 C 510.45,219.75 521.83,231.13 535.87,231.13 L 535.87,231.13 C 549.91,231.13 561.29,219.75 561.29,205.71 L 561.29,193.45 L 561.29,193.61 L 561.29,120.62 C 561.29,119.9 561.34,119.17 561.4,118.47 C 562.49,105.44 573.4,95.21 586.70,95.21 L 589.79,95.21"/>
+                  <circle class="bstd-dotf" cx="589.79" cy="95.21" r="5.4"/>
+                  <path class="bstd-brazo" d="M589.69,95.21h24.98c2.82,0,5.1,2.28,5.1,5.1v32.79"/>
+                  <g class="bstd-burb"><circle cx="603.31" cy="77.94" r="9.55"/><text x="603.31" y="81.4">x2</text></g>
+                  <path class="bstd-flecha" d="M619.78,133.5l-4.2,-6.4h8.4z"/>
+                  <g class="bstd-dur">
+                    <path d="M385.09,300.92v4.06c0,2.82,2.28,5.1,5.1,5.1h194.09c2.82,0,5.1-2.28,5.1-5.1v-4.06"/>
+                    <text x="487" y="322">DURACIÓN A LA EXPIRACIÓN DE LA ESTRATEGIA</text>
+                  </g>
+                </g>
+              </svg>
+              <div class="bstd-pasos">
+                <span class="bstd-paso" data-p="1">Cierre</span>
+                <span class="bstd-paso" data-p="2">x1</span>
+                <span class="bstd-paso" data-p="3">x2</span>
+              </div>
+              <button class="bstd-replay" type="button" id="replayExampleBtn" title="Volver a ver">Repetir</button>
+            </div>
+
+            <p class="booster-copy">
+              El día de contratación el precio cerrado es sensiblemente superior a los valores
+              del forward. Ese precio contratado es el <b>DUPLO</b>. El volumen contratado
+              dependerá del precio de la posición el día de expiración.
+            </p>
+            <div class="bst-esc"><i>×</i><div>Si el precio baja hasta el <b>CIERRE</b>, el volumen es el pactado originalmente y queda comprometido <b>sin precio fijado</b>.</div></div>
+            <div class="bst-esc"><i>x1</i><div>Si el precio está por debajo del <b>DUPLO</b>, el volumen es el pactado originalmente al precio del DUPLO.</div></div>
+            <div class="bst-esc"><i>x2</i><div>Si el precio está por encima del <b>DUPLO</b>, el volumen a entregar <b>se duplica</b> al precio del DUPLO.</div></div>
+          </article>
+        </section>
+      </div>
     </div>
 
     <script src="./script.js"></script>
