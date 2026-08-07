@@ -291,7 +291,7 @@ h1 {
   font-size: clamp(42px, 7vw, 96px);
   line-height: 0.94;
   letter-spacing: 0;
-  opacity: 0.5;
+  opacity: 1;
 }
 
 .lede {
