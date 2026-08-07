@@ -3,6 +3,9 @@ const ctx = canvas.getContext("2d");
 const form = document.querySelector(".contact-form");
 const settingsToggle = document.querySelector(".settings-toggle");
 const panelClose = document.querySelector(".panel-close");
+const showExampleButton = document.querySelector("#showExampleBtn");
+const backHomeButton = document.querySelector("#backHomeBtn");
+const replayExampleButton = document.querySelector("#replayExampleBtn");
 
 const defaults = {
   words: [
@@ -409,6 +412,55 @@ function setPanel(open) {
   settingsToggle.setAttribute("aria-expanded", String(open));
 }
 
+function animateBooster(wrap) {
+  if (!wrap) return;
+  clearTimeout(wrap.animationTimer);
+  const acts = [...wrap.querySelectorAll(".bstd-acto")];
+  const steps = [...wrap.querySelectorAll(".bstd-paso")];
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  acts.forEach((act) => {
+    act.classList.remove("on");
+    const path = act.querySelector(".bstd-curva");
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+    path.style.transition = "none";
+    path.style.strokeDashoffset = length;
+  });
+
+  wrap.getBoundingClientRect();
+
+  if (reduce) {
+    acts.at(-1)?.classList.add("on");
+    steps.at(-1)?.classList.add("on");
+    return;
+  }
+
+  const show = (index) => {
+    acts.forEach((act, actIndex) => act.classList.toggle("on", actIndex === index));
+    steps.forEach((step, stepIndex) => step.classList.toggle("on", stepIndex === index));
+
+    const path = acts[index].querySelector(".bstd-curva");
+    path.style.transition = "stroke-dashoffset 2600ms cubic-bezier(.45,.05,.55,.95)";
+    path.style.strokeDashoffset = 0;
+
+    if (index < acts.length - 1) {
+      wrap.animationTimer = setTimeout(() => show(index + 1), 7600);
+    }
+  };
+
+  requestAnimationFrame(() => show(0));
+}
+
+function setExample(open) {
+  document.body.classList.toggle("example-open", open);
+  if (open) {
+    setPanel(false);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.setTimeout(() => animateBooster(document.querySelector(".bstd-wrap")), 460);
+  }
+}
+
 window.addEventListener("resize", () => {
   resize();
   createNodes();
@@ -441,8 +493,16 @@ window.addEventListener("touchend", () => {
 
 settingsToggle.addEventListener("click", () => setPanel(true));
 panelClose.addEventListener("click", () => setPanel(false));
+showExampleButton.addEventListener("click", () => setExample(true));
+backHomeButton.addEventListener("click", () => setExample(false));
+replayExampleButton.addEventListener("click", () => {
+  animateBooster(document.querySelector(".bstd-wrap"));
+});
 document.addEventListener("keydown", (event) => {
-  if (event.key === "Escape") setPanel(false);
+  if (event.key === "Escape") {
+    setPanel(false);
+    setExample(false);
+  }
 });
 
 [
@@ -470,7 +530,7 @@ controls.reset.addEventListener("click", () => {
 
 form.addEventListener("submit", (event) => {
   event.preventDefault();
-  const button = form.querySelector("button");
+  const button = form.querySelector('button[type="submit"]');
   button.textContent = "Consulta enviada";
   button.disabled = true;
 });
