@@ -1,0 +1,38 @@
+:root {
+  --page-pad: clamp(24px, 5vw, 72px);
+  --brand-top: clamp(70px, 11vh, 118px);
+}
+
+.page-shell {
+  padding: var(--page-pad);
+}
+
+.brand-lockup {
+  top: var(--brand-top);
+}
+
+body.example-open .example-page {
+  place-items: start end;
+  padding: 0 clamp(72px, 8vw, 148px) 0 0;
+  transform: none;
+}
+
+body.example-open .booster-card {
+  margin-top: var(--brand-top);
+  height: calc(100vh - var(--brand-top) - var(--split-card-bottom) - var(--page-pad));
+  max-height: calc(100vh - var(--brand-top) - var(--split-card-bottom) - var(--page-pad));
+  min-height: 0;
+}
+
+@media (max-width: 920px) {
+  body.example-open .example-page {
+    padding: clamp(22px, 4vw, 64px);
+    place-items: center;
+  }
+
+  body.example-open .booster-card {
+    height: auto;
+    margin-top: 0;
+    max-height: calc(100svh - 32px);
+  }
+}
