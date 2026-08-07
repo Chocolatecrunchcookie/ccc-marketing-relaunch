@@ -397,7 +397,7 @@ function syncControls() {
   controls.gravity.value = config.gravity;
   controls.escape.value = config.escapeSpeed;
   controls.textColor.value = config.textColor;
-  controls.lineColor = controls.lineColor;
+  controls.lineColor.value = config.lineColor;
   controls.lineWidth.value = config.lineWidth;
   controls.curve.value = config.curveAmount;
   syncLabels();
