@@ -4,11 +4,14 @@
   --logo-width: clamp(168px, 19.6vw, 266px);
   --logo-height: calc(var(--logo-width) * 0.502);
   --logo-title-gap: clamp(34px, calc(var(--logo-height) * 0.38), 62px);
-  --title-subtitle-gap: clamp(14px, 0.22em, 24px);
-  --hero-text-width: min(var(--split-card-width), calc(100vw - (var(--page-pad) * 2)));
+  --title-subtitle-gap: clamp(14px, 2.3vh, 24px);
+  --shared-card-height: clamp(560px, 62vh, 640px);
 }
 
 .page-shell {
+  grid-template-columns: minmax(0, 1fr) minmax(384px, var(--split-card-width));
+  gap: 30px;
+  align-items: end;
   padding: var(--page-pad);
 }
 
@@ -21,20 +24,34 @@
 }
 
 .content {
-  align-self: start;
-  max-width: var(--hero-text-width);
-  padding-top: calc(var(--brand-top) + var(--logo-height) + var(--logo-title-gap));
+  align-self: end;
+  width: 100%;
+  max-width: none;
+  height: var(--shared-card-height);
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 h1 {
-  max-width: var(--hero-text-width);
+  max-width: none;
   margin-bottom: var(--title-subtitle-gap);
-  font-size: clamp(42px, 5.8vw, 78px);
+  font-size: clamp(42px, calc(var(--shared-card-height) * 0.108), 70px);
   line-height: 0.96;
 }
 
 .lede {
-  max-width: var(--hero-text-width);
+  max-width: none;
+  font-size: clamp(17px, calc(var(--shared-card-height) * 0.036), 21px);
+  line-height: 1.38;
+}
+
+.contact-form {
+  align-self: end;
+  height: var(--shared-card-height);
 }
 
 body.example-open .example-page {
@@ -62,18 +79,19 @@ body.example-open .booster-card {
     --split-card-bottom: clamp(42px, 5.2vh, 68px);
     --logo-width: clamp(146px, 13.2vw, 178px);
     --logo-title-gap: clamp(26px, calc(var(--logo-height) * 0.32), 44px);
-    --title-subtitle-gap: clamp(12px, 0.2em, 18px);
+    --title-subtitle-gap: clamp(12px, 2vh, 18px);
+    --shared-card-height: clamp(520px, 68vh, 600px);
   }
 
   .page-shell {
     grid-template-columns: minmax(390px, 1fr) minmax(380px, var(--split-card-width));
-    gap: clamp(28px, 4vw, 48px);
+    gap: 30px;
     align-items: end;
   }
 
   .content {
-    max-width: var(--hero-text-width);
-    padding-bottom: clamp(32px, 5vh, 58px);
+    max-width: none;
+    padding-bottom: 0;
   }
 
   .brand-lockup {
@@ -81,14 +99,14 @@ body.example-open .booster-card {
   }
 
   h1 {
-    max-width: var(--hero-text-width);
-    font-size: clamp(38px, 4.15vw, 54px);
+    max-width: none;
+    font-size: clamp(34px, calc(var(--shared-card-height) * 0.094), 50px);
     line-height: 0.96;
   }
 
   .lede {
-    max-width: var(--hero-text-width);
-    font-size: clamp(15px, 1.45vw, 17px);
+    max-width: none;
+    font-size: clamp(14px, calc(var(--shared-card-height) * 0.03), 17px);
     line-height: 1.35;
   }
 
@@ -123,11 +141,11 @@ body.example-open .booster-card {
 
   .page-shell {
     grid-template-columns: minmax(330px, 0.9fr) minmax(360px, 1fr);
-    gap: 28px;
+    gap: 30px;
   }
 
   h1 {
-    font-size: clamp(34px, 4.2vw, 44px);
+    font-size: clamp(30px, calc(var(--shared-card-height) * 0.095), 42px);
   }
 
   .lede {
@@ -141,6 +159,28 @@ body.example-open .booster-card {
 }
 
 @media (max-width: 920px) {
+  .page-shell {
+    gap: 28px;
+  }
+
+  .content {
+    height: auto;
+    display: block;
+    padding-top: 98px;
+  }
+
+  .contact-form {
+    height: auto;
+  }
+
+  h1 {
+    font-size: clamp(38px, 12vw, 66px);
+  }
+
+  .lede {
+    font-size: 17px;
+  }
+
   body.example-open .example-page {
     padding: clamp(22px, 4vw, 64px);
     place-items: center;
