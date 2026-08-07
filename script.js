@@ -1,33 +1,95 @@
 const canvas = document.querySelector("#networkCanvas");
 const ctx = canvas.getContext("2d");
 const form = document.querySelector(".contact-form");
+const settingsToggle = document.querySelector(".settings-toggle");
+const panelClose = document.querySelector(".panel-close");
 
-const words = [
-  "Put OTC",
-  "Acumulador",
-  "Step Up",
-  "Digital Booster",
-  "Piso",
-  "Techo",
-  "Duplo",
-  "Prima",
-  "Hedge",
-  "ROFEX",
-  "Futuros",
-  "Opciones",
-  "Cobertura",
-  "Originacion",
-  "Market data",
-  "Riesgo",
-  "Pricing",
-  "Back office",
-  "Trazabilidad",
-  "Forward",
-  "Commodities",
-  "Margenes",
-  "Ejecucion",
-  "Lifecycle",
-];
+const defaults = {
+  words: [
+    "Equity Swap",
+    "Covered Call",
+    "Cash Sweep",
+    "Bond Ladder",
+    "Credit Hedge",
+    "Index Fund",
+    "Income Trust",
+    "Delta Hedge",
+    "Treasury Bill",
+    "Yield Curve",
+    "Forward Contract",
+    "Futures Spread",
+    "Asset Allocation",
+    "Risk Parity",
+    "Carry Trade",
+    "Straddle Option",
+    "Collateral Loan",
+    "Dividend Capture",
+    "Currency Hedge",
+    "Private Equity",
+    "Venture Debt",
+    "Mezzanine Loan",
+    "Zero Coupon",
+    "Repo Agreement",
+    "Money Market",
+    "Growth Fund",
+    "Value Fund",
+    "Leveraged Loan",
+    "Synthetic Option",
+    "Inflation Swap",
+    "Credit Default",
+    "Buyback Plan",
+    "Tax Harvesting",
+    "Factor Investing",
+    "Volatility Fund",
+    "Mortgage Bond",
+    "Bridge Loan",
+    "Capital Buffer",
+    "Callable Bond",
+    "Structured Note",
+  ],
+  count: 40,
+  appearInterval: 0.35,
+  speed: 80,
+  linkDistance: 260,
+  cutRadius: 130,
+  cursorForce: 84,
+  gravity: 50,
+  escapeSpeed: 20,
+  textColor: "#ffffff",
+  lineColor: "#00e5e5",
+  lineWidth: 1.5,
+  curveAmount: 0,
+};
+
+const controls = {
+  words: document.querySelector("#wordsInput"),
+  count: document.querySelector("#countInput"),
+  appear: document.querySelector("#appearInput"),
+  speed: document.querySelector("#speedInput"),
+  distance: document.querySelector("#distInput"),
+  cut: document.querySelector("#cutInput"),
+  cursorForce: document.querySelector("#cursorForceInput"),
+  gravity: document.querySelector("#gravityInput"),
+  escape: document.querySelector("#escapeInput"),
+  textColor: document.querySelector("#textColorInput"),
+  lineColor: document.querySelector("#lineColorInput"),
+  lineWidth: document.querySelector("#lineWidthInput"),
+  curve: document.querySelector("#curveInput"),
+  reset: document.querySelector("#resetBtn"),
+};
+
+const labels = {
+  count: document.querySelector("#countVal"),
+  appear: document.querySelector("#appearVal"),
+  speed: document.querySelector("#speedVal"),
+  distance: document.querySelector("#distVal"),
+  cut: document.querySelector("#cutVal"),
+  cursorForce: document.querySelector("#cursorForceVal"),
+  gravity: document.querySelector("#gravityVal"),
+  escape: document.querySelector("#escapeVal"),
+  lineWidth: document.querySelector("#lineWidthVal"),
+  curve: document.querySelector("#curveVal"),
+};
 
 const state = {
   width: 0,
@@ -35,19 +97,26 @@ const state = {
   dpr: 1,
   nodes: [],
   mouse: { x: null, y: null },
-  startedAt: 0,
+  spawnStart: 0,
 };
 
-const config = {
-  count: 42,
-  speed: 0.52,
-  linkDistance: 230,
-  cutRadius: 82,
-  gravity: 0.018,
-  cursorForce: 0.34,
-  lineColor: [255, 122, 47],
-  textColor: [255, 255, 255],
-};
+let config = structuredClone(defaults);
+
+const font = '15px "SF Mono", Menlo, Consolas, monospace';
+const maxForce = 0.05;
+const maxCursorForce = 0.4;
+const equilibrium = 34;
+const maxSpeed = 4;
+
+function speedToPxPerFrame(value) {
+  return 0.02 + (value / 100) * 1.58;
+}
+
+function hexToRgb(hex) {
+  const cleanHex = hex.replace("#", "");
+  const value = Number.parseInt(cleanHex, 16);
+  return [(value >> 16) & 255, (value >> 8) & 255, value & 255];
+}
 
 function resize() {
   state.dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -58,39 +127,37 @@ function resize() {
   canvas.style.width = `${state.width}px`;
   canvas.style.height = `${state.height}px`;
   ctx.setTransform(state.dpr, 0, 0, state.dpr, 0, 0);
-  createNodes();
 }
 
 function measure(text) {
-  ctx.font = font();
+  ctx.font = font;
   return ctx.measureText(text).width;
 }
 
-function font() {
-  return '13px "SF Mono", Menlo, Consolas, monospace';
-}
-
 function createNodes() {
-  state.startedAt = performance.now();
-  const count = Math.max(28, Math.round(Math.min(56, state.width / 26)));
-  state.nodes = Array.from({ length: count }, (_, index) => {
-    const text = words[index % words.length];
+  const activeWords = config.words.length ? config.words : ["CCC"];
+  state.spawnStart = performance.now();
+  state.nodes = Array.from({ length: Math.max(1, config.count) }, (_, index) => {
+    const text = activeWords[index % activeWords.length];
+    const width = measure(text);
     const angle = Math.random() * Math.PI * 2;
-    const speed = config.speed * (0.5 + Math.random() * 0.9);
-    const textWidth = measure(text);
+    const speedFactor = 0.5 + Math.random();
+    const speed = speedToPxPerFrame(config.speed) * speedFactor;
+
     return {
       text,
-      w: textWidth,
-      h: 16,
-      x: Math.random() * Math.max(1, state.width - textWidth) + textWidth / 2,
+      w: width,
+      h: 18,
+      x: Math.random() * Math.max(1, state.width - width) + width / 2,
       y: Math.random() * state.height,
       vx: Math.cos(angle) * speed,
       vy: Math.sin(angle) * speed,
-      alpha: 0.28 + Math.random() * 0.48,
+      speedFactor,
+      baseAlpha: 0.28 + Math.random() * 0.46,
       pulse: Math.random() * Math.PI * 2,
-      delay: index * 120,
-      visible: false,
-      fade: 0,
+      spawnDelay: index * config.appearInterval * 1000,
+      active: false,
+      spawnAlpha: 0,
     };
   });
 }
@@ -107,7 +174,7 @@ function pointToSegmentDistance(px, py, ax, ay, bx, by) {
 }
 
 function cursorCuts(a, b) {
-  if (state.mouse.x === null) return false;
+  if (state.mouse.x === null || config.cutRadius <= 0) return false;
   return (
     pointToSegmentDistance(state.mouse.x, state.mouse.y, a.x, a.y, b.x, b.y) <
     config.cutRadius
@@ -115,62 +182,93 @@ function cursorCuts(a, b) {
 }
 
 function applyPhysics() {
+  const count = state.nodes.length;
   const now = performance.now();
-  const ax = new Float64Array(state.nodes.length);
-  const ay = new Float64Array(state.nodes.length);
+  const ax = new Float64Array(count);
+  const ay = new Float64Array(count);
+  const bondSum = new Float64Array(count);
+  const forceScale = (config.gravity / 100) * maxForce;
+  const escapeSpeedPx = 0.05 + (config.escapeSpeed / 100) * 1.5;
 
-  for (let i = 0; i < state.nodes.length; i += 1) {
+  for (let i = 0; i < count; i += 1) {
     const node = state.nodes[i];
-    if (!node.visible && now - state.startedAt > node.delay) node.visible = true;
-    if (!node.visible) continue;
-    node.fade = Math.min(1, node.fade + 0.025);
+    if (!node.active && now - state.spawnStart >= node.spawnDelay) node.active = true;
   }
 
-  for (let i = 0; i < state.nodes.length; i += 1) {
-    for (let j = i + 1; j < state.nodes.length; j += 1) {
+  for (let i = 0; i < count; i += 1) {
+    for (let j = i + 1; j < count; j += 1) {
       const a = state.nodes[i];
       const b = state.nodes[j];
-      if (!a.visible || !b.visible || cursorCuts(a, b)) continue;
+      if (!a.active || !b.active || cursorCuts(a, b)) continue;
 
       const dx = b.x - a.x;
       const dy = b.y - a.y;
-      const distance = Math.hypot(dx, dy);
-      if (distance > config.linkDistance || distance < 0.001) continue;
+      let distance = Math.hypot(dx, dy);
+      if (distance >= config.linkDistance) continue;
+      if (distance < 0.001) distance = 0.001;
 
-      const closeness = 1 - distance / config.linkDistance;
-      const force = config.gravity * closeness;
       const ux = dx / distance;
       const uy = dy / distance;
-      ax[i] += ux * force;
-      ay[i] += uy * force;
-      ax[j] -= ux * force;
-      ay[j] -= uy * force;
+      const relativeSpeed = Math.hypot(a.vx - b.vx, a.vy - b.vy);
+      const bondFactor = Math.max(0, Math.min(1, 1 - relativeSpeed / escapeSpeedPx));
+      if (bondFactor <= 0 || forceScale <= 0) continue;
+
+      const closeness = 1 - distance / config.linkDistance;
+      const spring = (forceScale * bondFactor * (distance - equilibrium)) / config.linkDistance;
+      ax[i] += ux * spring;
+      ay[i] += uy * spring;
+      ax[j] -= ux * spring;
+      ay[j] -= uy * spring;
+
+      const alignFactor = 0.05 * bondFactor * closeness;
+      const averageVx = (a.vx + b.vx) / 2;
+      const averageVy = (a.vy + b.vy) / 2;
+      ax[i] += (averageVx - a.vx) * alignFactor;
+      ay[i] += (averageVy - a.vy) * alignFactor;
+      ax[j] += (averageVx - b.vx) * alignFactor;
+      ay[j] += (averageVy - b.vy) * alignFactor;
+
+      bondSum[i] += bondFactor * closeness;
+      bondSum[j] += bondFactor * closeness;
     }
   }
 
-  if (state.mouse.x !== null) {
-    for (let i = 0; i < state.nodes.length; i += 1) {
+  const cursorForceScale = (config.cursorForce / 100) * maxCursorForce;
+  if (state.mouse.x !== null && config.cutRadius > 0 && cursorForceScale > 0) {
+    for (let i = 0; i < count; i += 1) {
       const node = state.nodes[i];
+      if (!node.active) continue;
       const dx = node.x - state.mouse.x;
       const dy = node.y - state.mouse.y;
-      const distance = Math.hypot(dx, dy) || 0.001;
-      if (distance > config.cutRadius) continue;
-      const push = config.cursorForce * (1 - distance / config.cutRadius);
+      const distance = Math.hypot(dx, dy) || 0.0001;
+      if (distance >= config.cutRadius) continue;
+      const push = cursorForceScale * (1 - distance / config.cutRadius);
       ax[i] += (dx / distance) * push;
       ay[i] += (dy / distance) * push;
     }
   }
 
-  for (let i = 0; i < state.nodes.length; i += 1) {
+  for (let i = 0; i < count; i += 1) {
     const node = state.nodes[i];
-    if (!node.visible) continue;
+    if (!node.active) continue;
+
+    node.spawnAlpha = Math.min(1, node.spawnAlpha + 0.04);
     node.vx += ax[i];
     node.vy += ay[i];
 
+    const baseSpeed = speedToPxPerFrame(config.speed) * node.speedFactor;
+    const currentSpeed = Math.hypot(node.vx, node.vy) || 0.0001;
+    const clusterFactor = bondSum[i] > 0.02 ? Math.max(0.15, 1 - bondSum[i] * 0.4) : 1;
+    const targetSpeed = baseSpeed * clusterFactor;
+    const easing = bondSum[i] > 0.02 ? 0.03 : 0.02;
+    const newSpeed = currentSpeed + (targetSpeed - currentSpeed) * easing;
+    node.vx *= newSpeed / currentSpeed;
+    node.vy *= newSpeed / currentSpeed;
+
     const speed = Math.hypot(node.vx, node.vy);
-    if (speed > 2.2) {
-      node.vx = (node.vx / speed) * 2.2;
-      node.vy = (node.vy / speed) * 2.2;
+    if (speed > maxSpeed) {
+      node.vx = (node.vx / speed) * maxSpeed;
+      node.vy = (node.vy / speed) * maxSpeed;
     }
 
     node.x += node.vx;
@@ -180,43 +278,55 @@ function applyPhysics() {
     if (node.y - node.h < 0 || node.y + node.h > state.height) node.vy *= -1;
     node.x = Math.max(node.w / 2, Math.min(state.width - node.w / 2, node.x));
     node.y = Math.max(node.h, Math.min(state.height, node.y));
-    node.pulse += 0.012;
+    node.pulse += 0.008;
   }
 }
 
 function draw() {
   ctx.clearRect(0, 0, state.width, state.height);
-  ctx.font = font();
-  ctx.textBaseline = "alphabetic";
+  const lineRgb = hexToRgb(config.lineColor);
+  const textRgb = hexToRgb(config.textColor);
+  const curveFactor = (config.curveAmount / 100) * 0.65;
 
   for (let i = 0; i < state.nodes.length; i += 1) {
     for (let j = i + 1; j < state.nodes.length; j += 1) {
       const a = state.nodes[i];
       const b = state.nodes[j];
-      if (!a.visible || !b.visible || cursorCuts(a, b)) continue;
-      const distance = Math.hypot(b.x - a.x, b.y - a.y);
-      if (distance > config.linkDistance) continue;
-
-      const alpha = (1 - distance / config.linkDistance) * 0.42 * Math.min(a.fade, b.fade);
-      ctx.strokeStyle = `rgba(${config.lineColor[0]}, ${config.lineColor[1]}, ${config.lineColor[2]}, ${alpha})`;
-      ctx.lineWidth = 1.35;
-      ctx.beginPath();
-      ctx.moveTo(a.x, a.y);
-      const midX = (a.x + b.x) / 2;
-      const midY = (a.y + b.y) / 2;
+      if (!a.active || !b.active || cursorCuts(a, b)) continue;
       const dx = b.x - a.x;
       const dy = b.y - a.y;
-      const bow = ((i * 11 + j * 5) % 2 === 0 ? 1 : -1) * distance * 0.18;
-      ctx.quadraticCurveTo(midX - dy * 0.002 * bow, midY + dx * 0.002 * bow, b.x, b.y);
+      const distance = Math.hypot(dx, dy);
+      if (distance >= config.linkDistance) continue;
+
+      const alpha = (1 - distance / config.linkDistance) * 0.5 * Math.min(a.spawnAlpha, b.spawnAlpha);
+      ctx.strokeStyle = `rgba(${lineRgb[0]}, ${lineRgb[1]}, ${lineRgb[2]}, ${alpha})`;
+      ctx.lineWidth = config.lineWidth;
+      ctx.beginPath();
+      ctx.moveTo(a.x, a.y);
+      if (config.curveAmount > 0) {
+        const midX = (a.x + b.x) / 2;
+        const midY = (a.y + b.y) / 2;
+        const direction = (i + j) % 2 === 0 ? 1 : -1;
+        ctx.quadraticCurveTo(
+          midX - dy * curveFactor * direction,
+          midY + dx * curveFactor * direction,
+          b.x,
+          b.y,
+        );
+      } else {
+        ctx.lineTo(b.x, b.y);
+      }
       ctx.stroke();
     }
   }
 
+  ctx.font = font;
+  ctx.textBaseline = "alphabetic";
   for (const node of state.nodes) {
-    if (!node.visible) continue;
+    if (!node.active) continue;
     const flicker = 0.12 * Math.sin(node.pulse);
-    const alpha = Math.max(0.12, node.alpha + flicker) * node.fade;
-    ctx.fillStyle = `rgba(${config.textColor[0]}, ${config.textColor[1]}, ${config.textColor[2]}, ${alpha})`;
+    const alpha = Math.max(0.1, node.baseAlpha + flicker) * node.spawnAlpha;
+    ctx.fillStyle = `rgba(${textRgb[0]}, ${textRgb[1]}, ${textRgb[2]}, ${alpha})`;
     ctx.fillText(node.text, node.x - node.w / 2, node.y);
   }
 }
@@ -227,17 +337,93 @@ function loop() {
   requestAnimationFrame(loop);
 }
 
-function setMouse(event) {
-  state.mouse.x = event.clientX;
-  state.mouse.y = event.clientY;
+function syncLabels() {
+  labels.count.textContent = config.count;
+  labels.appear.textContent = `${config.appearInterval.toFixed(2)}s`;
+  labels.speed.textContent = config.speed;
+  labels.distance.textContent = `${config.linkDistance}px`;
+  labels.cut.textContent = `${config.cutRadius}px`;
+  labels.cursorForce.textContent = config.cursorForce;
+  labels.gravity.textContent = config.gravity;
+  labels.escape.textContent = config.escapeSpeed;
+  labels.lineWidth.textContent = `${config.lineWidth}px`;
+  labels.curve.textContent = config.curveAmount;
 }
 
-window.addEventListener("resize", resize);
-canvas.addEventListener("mousemove", setMouse);
+function syncControls() {
+  controls.words.value = config.words.join("\n");
+  controls.count.value = config.count;
+  controls.appear.value = config.appearInterval;
+  controls.speed.value = config.speed;
+  controls.distance.value = config.linkDistance;
+  controls.cut.value = config.cutRadius;
+  controls.cursorForce.value = config.cursorForce;
+  controls.gravity.value = config.gravity;
+  controls.escape.value = config.escapeSpeed;
+  controls.textColor.value = config.textColor;
+  controls.lineColor.value = config.lineColor;
+  controls.lineWidth.value = config.lineWidth;
+  controls.curve.value = config.curveAmount;
+  syncLabels();
+}
+
+function rebuildFromControls() {
+  config = {
+    words: controls.words.value
+      .split("\n")
+      .map((word) => word.trim())
+      .filter(Boolean),
+    count: Number(controls.count.value),
+    appearInterval: Number(controls.appear.value),
+    speed: Number(controls.speed.value),
+    linkDistance: Number(controls.distance.value),
+    cutRadius: Number(controls.cut.value),
+    cursorForce: Number(controls.cursorForce.value),
+    gravity: Number(controls.gravity.value),
+    escapeSpeed: Number(controls.escape.value),
+    textColor: controls.textColor.value,
+    lineColor: controls.lineColor.value,
+    lineWidth: Number(controls.lineWidth.value),
+    curveAmount: Number(controls.curve.value),
+  };
+  syncLabels();
+  createNodes();
+}
+
+function updateLiveConfig() {
+  config.speed = Number(controls.speed.value);
+  config.linkDistance = Number(controls.distance.value);
+  config.cutRadius = Number(controls.cut.value);
+  config.cursorForce = Number(controls.cursorForce.value);
+  config.gravity = Number(controls.gravity.value);
+  config.escapeSpeed = Number(controls.escape.value);
+  config.textColor = controls.textColor.value;
+  config.lineColor = controls.lineColor.value;
+  config.lineWidth = Number(controls.lineWidth.value);
+  config.curveAmount = Number(controls.curve.value);
+  syncLabels();
+}
+
+function setPanel(open) {
+  document.body.classList.toggle("settings-open", open);
+  settingsToggle.setAttribute("aria-expanded", String(open));
+}
+
+window.addEventListener("resize", () => {
+  resize();
+  createNodes();
+});
+
+canvas.addEventListener("mousemove", (event) => {
+  state.mouse.x = event.clientX;
+  state.mouse.y = event.clientY;
+});
+
 canvas.addEventListener("mouseleave", () => {
   state.mouse.x = null;
   state.mouse.y = null;
 });
+
 canvas.addEventListener(
   "touchmove",
   (event) => {
@@ -247,9 +433,39 @@ canvas.addEventListener(
   },
   { passive: true },
 );
+
 canvas.addEventListener("touchend", () => {
   state.mouse.x = null;
   state.mouse.y = null;
+});
+
+settingsToggle.addEventListener("click", () => setPanel(true));
+panelClose.addEventListener("click", () => setPanel(false));
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape") setPanel(false);
+});
+
+[
+  controls.speed,
+  controls.distance,
+  controls.cut,
+  controls.cursorForce,
+  controls.gravity,
+  controls.escape,
+  controls.textColor,
+  controls.lineColor,
+  controls.lineWidth,
+  controls.curve,
+].forEach((control) => control.addEventListener("input", updateLiveConfig));
+
+[controls.words, controls.count, controls.appear].forEach((control) => {
+  control.addEventListener("input", rebuildFromControls);
+});
+
+controls.reset.addEventListener("click", () => {
+  config = structuredClone(defaults);
+  syncControls();
+  createNodes();
 });
 
 form.addEventListener("submit", (event) => {
@@ -260,4 +476,6 @@ form.addEventListener("submit", (event) => {
 });
 
 resize();
+syncControls();
+createNodes();
 loop();
