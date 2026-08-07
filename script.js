@@ -53,11 +53,11 @@ const defaults = {
   linkDistance: 260,
   cutRadius: 130,
   cursorForce: 84,
-  gravity: 50,
+  gravity: 65,
   escapeSpeed: 20,
   textColor: "#ffffff",
   lineColor: "#00e5e5",
-  lineWidth: 1.5,
+  lineWidth: 3,
   curveAmount: 0,
 };
 
