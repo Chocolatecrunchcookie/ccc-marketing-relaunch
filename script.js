@@ -118,30 +118,30 @@ function fitHeroTypography() {
 
   if (window.innerWidth <= 1120) {
     headline.style.fontSize = "";
+    heroContent.style.removeProperty("--hero-title-size");
     return;
   }
 
-  headline.style.fontSize = "24px";
+  heroContent.style.removeProperty("--hero-title-size");
+  headline.style.fontSize = "";
+  heroContent.style.setProperty("--hero-title-size", "24px");
 
   const heroHeight = heroContent.clientHeight;
-  const ledeHeight = lede.getBoundingClientRect().height;
-  const minGap = Math.max(24, heroHeight * 0.08);
-  const available = Math.max(120, heroHeight - ledeHeight - minGap);
 
   let low = 24;
   let high = Math.min(150, heroHeight * 0.32);
 
   for (let i = 0; i < 12; i += 1) {
     const mid = (low + high) / 2;
-    headline.style.fontSize = `${mid}px`;
-    if (headline.getBoundingClientRect().height <= available) {
+    heroContent.style.setProperty("--hero-title-size", `${mid}px`);
+    if (heroContent.scrollHeight <= heroHeight + 1) {
       low = mid;
     } else {
       high = mid;
     }
   }
 
-  headline.style.fontSize = `${Math.floor(low)}px`;
+  heroContent.style.setProperty("--hero-title-size", `${Math.floor(low)}px`);
 }
 
 function speedToPxPerFrame(value) {
