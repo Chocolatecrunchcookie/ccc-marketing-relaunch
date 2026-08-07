@@ -5,6 +5,7 @@
   --logo-height: calc(var(--logo-width) * 0.502);
   --logo-title-gap: clamp(34px, calc(var(--logo-height) * 0.38), 62px);
   --title-subtitle-gap: clamp(18px, 0.26em, 30px);
+  --hero-text-width: min(var(--split-card-width), calc(100vw - (var(--page-pad) * 2)));
 }
 
 .page-shell {
@@ -21,11 +22,17 @@
 
 .content {
   align-self: start;
+  max-width: var(--hero-text-width);
   padding-top: calc(var(--brand-top) + var(--logo-height) + var(--logo-title-gap));
 }
 
 h1 {
+  max-width: var(--hero-text-width);
   margin-bottom: var(--title-subtitle-gap);
+}
+
+.lede {
+  max-width: var(--hero-text-width);
 }
 
 body.example-open .example-page {
@@ -62,7 +69,7 @@ body.example-open .booster-card {
   }
 
   .content {
-    max-width: 620px;
+    max-width: var(--hero-text-width);
     padding-bottom: clamp(32px, 5vh, 58px);
   }
 
@@ -71,13 +78,13 @@ body.example-open .booster-card {
   }
 
   h1 {
-    max-width: 620px;
+    max-width: var(--hero-text-width);
     font-size: clamp(48px, 5.2vw, 68px);
     line-height: 0.98;
   }
 
   .lede {
-    max-width: 600px;
+    max-width: var(--hero-text-width);
     font-size: clamp(17px, 1.75vw, 20px);
     line-height: 1.42;
   }
