@@ -6,7 +6,7 @@
   --logo-title-gap: clamp(34px, calc(var(--logo-height) * 0.38), 62px);
   --title-subtitle-gap: clamp(14px, 2.3vh, 24px);
   --shared-card-height: clamp(560px, 62vh, 640px);
-  --hero-title-size: clamp(42px, calc(var(--shared-card-height) * 0.108), 70px);
+  --hero-title-size: clamp(52px, 5.8vw, 82px);
   --hero-subtitle-size: calc(var(--hero-title-size) / 3);
 }
 
@@ -86,7 +86,7 @@ body.example-open .booster-card {
     --logo-title-gap: clamp(26px, calc(var(--logo-height) * 0.32), 44px);
     --title-subtitle-gap: clamp(12px, 2vh, 18px);
     --shared-card-height: clamp(520px, 68vh, 600px);
-    --hero-title-size: clamp(34px, calc(var(--shared-card-height) * 0.094), 50px);
+    --hero-title-size: clamp(40px, 4.2vw, 58px);
   }
 
   .page-shell {
@@ -143,6 +143,7 @@ body.example-open .booster-card {
     --brand-top: clamp(76px, 8vh, 96px);
     --logo-width: clamp(140px, 17vw, 176px);
     --logo-title-gap: clamp(28px, calc(var(--logo-height) * 0.34), 44px);
+    --hero-title-size: clamp(40px, 7vw, 62px);
   }
 
   .page-shell {
