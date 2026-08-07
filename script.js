@@ -5,6 +5,9 @@ const settingsToggle = document.querySelector(".settings-toggle");
 const panelClose = document.querySelector(".panel-close");
 const showExampleButton = document.querySelector("#showExampleBtn");
 const replayExampleButton = document.querySelector("#replayExampleBtn");
+const heroContent = document.querySelector(".content");
+const headline = document.querySelector("#headline");
+const lede = document.querySelector(".lede");
 
 const defaults = {
   words: [
@@ -109,6 +112,37 @@ const maxForce = 0.05;
 const maxCursorForce = 0.4;
 const equilibrium = 34;
 const maxSpeed = 4;
+
+function fitHeroTypography() {
+  if (!heroContent || !headline || !lede) return;
+
+  if (window.innerWidth <= 920) {
+    headline.style.fontSize = "";
+    return;
+  }
+
+  headline.style.fontSize = "24px";
+
+  const heroHeight = heroContent.clientHeight;
+  const ledeHeight = lede.getBoundingClientRect().height;
+  const minGap = Math.max(24, heroHeight * 0.08);
+  const available = Math.max(120, heroHeight - ledeHeight - minGap);
+
+  let low = 24;
+  let high = Math.min(150, heroHeight * 0.32);
+
+  for (let i = 0; i < 12; i += 1) {
+    const mid = (low + high) / 2;
+    headline.style.fontSize = `${mid}px`;
+    if (headline.getBoundingClientRect().height <= available) {
+      low = mid;
+    } else {
+      high = mid;
+    }
+  }
+
+  headline.style.fontSize = `${Math.floor(low)}px`;
+}
 
 function speedToPxPerFrame(value) {
   return 0.02 + (value / 100) * 1.58;
@@ -462,6 +496,7 @@ function setExample(open) {
 
 window.addEventListener("resize", () => {
   resize();
+  fitHeroTypography();
   createNodes();
 });
 
@@ -534,9 +569,17 @@ form.addEventListener("submit", (event) => {
   const button = form.querySelector('button[type="submit"]');
   button.textContent = "Consulta enviada";
   button.disabled = true;
+  requestAnimationFrame(fitHeroTypography);
 });
 
+if ("ResizeObserver" in window) {
+  new ResizeObserver(fitHeroTypography).observe(heroContent);
+  new ResizeObserver(fitHeroTypography).observe(form);
+}
+
 resize();
+fitHeroTypography();
+document.fonts?.ready?.then(fitHeroTypography);
 syncControls();
 createNodes();
 loop();
