@@ -414,17 +414,17 @@ window.addEventListener("resize", () => {
   createNodes();
 });
 
-canvas.addEventListener("mousemove", (event) => {
+window.addEventListener("mousemove", (event) => {
   state.mouse.x = event.clientX;
   state.mouse.y = event.clientY;
 });
 
-canvas.addEventListener("mouseleave", () => {
+window.addEventListener("mouseleave", () => {
   state.mouse.x = null;
   state.mouse.y = null;
 });
 
-canvas.addEventListener(
+window.addEventListener(
   "touchmove",
   (event) => {
     if (!event.touches.length) return;
@@ -434,7 +434,7 @@ canvas.addEventListener(
   { passive: true },
 );
 
-canvas.addEventListener("touchend", () => {
+window.addEventListener("touchend", () => {
   state.mouse.x = null;
   state.mouse.y = null;
 });
