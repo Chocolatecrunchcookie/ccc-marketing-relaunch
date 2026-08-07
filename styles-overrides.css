@@ -17,10 +17,14 @@ body.example-open .example-page {
   transform: none;
 }
 
+body.example-open .contact-form {
+  margin-bottom: 0;
+}
+
 body.example-open .booster-card {
   margin-top: var(--brand-top);
-  height: calc(100vh - var(--brand-top) - var(--split-card-bottom) - var(--page-pad));
-  max-height: calc(100vh - var(--brand-top) - var(--split-card-bottom) - var(--page-pad));
+  height: calc(100vh - var(--brand-top) - var(--page-pad));
+  max-height: calc(100vh - var(--brand-top) - var(--page-pad));
   min-height: 0;
 }
 
