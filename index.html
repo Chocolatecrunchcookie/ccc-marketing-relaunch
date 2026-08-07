@@ -11,54 +11,138 @@
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <canvas id="networkCanvas" aria-hidden="true"></canvas>
+    <button
+      class="settings-toggle"
+      type="button"
+      aria-controls="settingsPanel"
+      aria-expanded="false"
+      aria-label="Abrir configuracion del fondo"
+    >
+      <span aria-hidden="true">⚙</span>
+    </button>
 
-    <main class="page-shell">
-      <section class="content" aria-labelledby="headline">
-        <div class="brand-lockup" aria-label="Chocolate Crunch Cookie">
-          <img class="logo-mark" src="./logo_CCC.svg" alt="" />
-          <span>Chocolate Crunch Cookie</span>
-        </div>
-        <p class="eyebrow">Estructurados agro</p>
-        <h1 id="headline">Cobertura, originacion y estructuras de precio para el mercado agro.</h1>
-        <p class="lede">
-          En CCC ayudamos a transformar escenarios de mercado en decisiones comerciales claras:
-          pisos, techos, acumuladores, boosters y estrategias OTC con foco en trazabilidad,
-          riesgo y ejecucion.
-        </p>
-      </section>
+    <aside class="settings-panel" id="settingsPanel" aria-label="Configuracion del fondo">
+      <div class="panel-heading">
+        <h2>Configuracion</h2>
+        <button class="panel-close" type="button" aria-label="Cerrar configuracion">×</button>
+      </div>
 
-      <form class="contact-form" aria-label="Formulario de contacto">
-        <div>
-          <p class="form-kicker">Contacto</p>
-          <h2>Hablemos de una estrategia</h2>
-        </div>
-        <label>
-          Nombre
-          <input type="text" name="name" autocomplete="name" placeholder="Tu nombre" required />
-        </label>
-        <label>
-          Email
-          <input
-            type="email"
-            name="email"
-            autocomplete="email"
-            placeholder="nombre@empresa.com"
-            required
-          />
-        </label>
-        <label>
-          Mensaje
-          <textarea
-            name="message"
-            rows="4"
-            placeholder="Contanos que producto, cobertura o necesidad queres conversar"
-          ></textarea>
-        </label>
-        <button type="submit">Enviar consulta</button>
-        <p class="form-note">Material preliminar. No constituye recomendacion financiera.</p>
-      </form>
-    </main>
+      <div class="settings-section">Contenido</div>
+      <label class="setting-field setting-field-text">
+        <span>Palabras / frases</span>
+        <textarea id="wordsInput" spellcheck="false"></textarea>
+      </label>
+      <label class="setting-field">
+        <span>Cantidad visible <strong id="countVal"></strong></span>
+        <input id="countInput" type="range" min="3" max="120" step="1" />
+      </label>
+      <label class="setting-field">
+        <span>Intervalo de aparicion (s) <strong id="appearVal"></strong></span>
+        <input id="appearInput" type="range" min="0" max="3" step="0.05" />
+        <small>Cada palabra aparece una por una, separadas por este tiempo. En 0 aparecen todas juntas.</small>
+      </label>
+
+      <div class="settings-section">Movimiento</div>
+      <label class="setting-field">
+        <span>Velocidad de desplazamiento <strong id="speedVal"></strong></span>
+        <input id="speedInput" type="range" min="1" max="100" step="1" />
+      </label>
+      <label class="setting-field">
+        <span>Distancia de conexion (px) <strong id="distVal"></strong></span>
+        <input id="distInput" type="range" min="40" max="500" step="5" />
+      </label>
+      <label class="setting-field">
+        <span>Radio de corte del cursor (px) <strong id="cutVal"></strong></span>
+        <input id="cutInput" type="range" min="0" max="250" step="5" />
+        <small>Tambien define el radio en el que el cursor repele a las palabras.</small>
+      </label>
+      <label class="setting-field">
+        <span>Fuerza de repulsion del cursor <strong id="cursorForceVal"></strong></span>
+        <input id="cursorForceInput" type="range" min="0" max="100" step="1" />
+      </label>
+
+      <div class="settings-section">Gravedad / agrupamiento</div>
+      <label class="setting-field">
+        <span>Fuerza de gravedad <strong id="gravityVal"></strong></span>
+        <input id="gravityInput" type="range" min="0" max="100" step="1" />
+        <small>Que tan fuerte se atraen y se frenan las palabras al quedar unidas.</small>
+      </label>
+      <label class="setting-field">
+        <span>Velocidad de escape <strong id="escapeVal"></strong></span>
+        <input id="escapeInput" type="range" min="0" max="100" step="1" />
+        <small>Si dos palabras se cruzan mas rapido que esto, no llegan a unirse.</small>
+      </label>
+
+      <div class="settings-section">Estilo</div>
+      <label class="setting-field">
+        <span>Color de la tipografia</span>
+        <input id="textColorInput" type="color" />
+      </label>
+      <label class="setting-field">
+        <span>Color de las lineas</span>
+        <input id="lineColorInput" type="color" />
+      </label>
+      <label class="setting-field">
+        <span>Grosor de las lineas <strong id="lineWidthVal"></strong></span>
+        <input id="lineWidthInput" type="range" min="0.5" max="6" step="0.5" />
+      </label>
+      <label class="setting-field">
+        <span>Curvatura de las lineas <strong id="curveVal"></strong></span>
+        <input id="curveInput" type="range" min="0" max="100" step="1" />
+      </label>
+      <button class="reset-settings" id="resetBtn" type="button">Restablecer valores por defecto</button>
+    </aside>
+
+    <div class="site-stage">
+      <canvas id="networkCanvas" aria-hidden="true"></canvas>
+
+      <main class="page-shell">
+        <section class="content" aria-labelledby="headline">
+          <div class="brand-lockup" aria-label="Chocolate Crunch Cookie">
+            <img class="logo-mark" src="./logo_CCC.svg" alt="" />
+            <span>Chocolate Crunch Cookie</span>
+          </div>
+          <p class="eyebrow">Estructurados agro</p>
+          <h1 id="headline">Cobertura, originacion y estructuras de precio para el mercado agro.</h1>
+          <p class="lede">
+            En CCC ayudamos a transformar escenarios de mercado en decisiones comerciales claras:
+            pisos, techos, acumuladores, boosters y estrategias OTC con foco en trazabilidad,
+            riesgo y ejecucion.
+          </p>
+        </section>
+
+        <form class="contact-form" aria-label="Formulario de contacto">
+          <div>
+            <p class="form-kicker">Contacto</p>
+            <h2>Hablemos de una estrategia</h2>
+          </div>
+          <label>
+            Nombre
+            <input type="text" name="name" autocomplete="name" placeholder="Tu nombre" required />
+          </label>
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              autocomplete="email"
+              placeholder="nombre@empresa.com"
+              required
+            />
+          </label>
+          <label>
+            Mensaje
+            <textarea
+              name="message"
+              rows="4"
+              placeholder="Contanos que producto, cobertura o necesidad queres conversar"
+            ></textarea>
+          </label>
+          <button type="submit">Enviar consulta</button>
+          <p class="form-note">Material preliminar. No constituye recomendacion financiera.</p>
+        </form>
+      </main>
+    </div>
 
     <script src="./script.js"></script>
   </body>
