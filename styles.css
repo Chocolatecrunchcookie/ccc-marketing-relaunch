@@ -251,21 +251,22 @@ body.settings-open .settings-panel {
 }
 
 .content {
+  align-self: center;
   max-width: 840px;
-  padding-bottom: clamp(12px, 5vh, 56px);
+  padding-bottom: 0;
 }
 
 .brand-lockup {
   width: fit-content;
   display: block;
-  margin-bottom: clamp(58px, 11vh, 112px);
+  margin-bottom: clamp(24px, 5vh, 52px);
   filter: drop-shadow(0 22px 58px rgb(0 0 0 / 0.42));
   transform: translateY(-50px);
 }
 
 .logo-mark {
   display: block;
-  width: clamp(240px, 28vw, 380px);
+  width: clamp(168px, 19.6vw, 266px);
   height: auto;
   filter: brightness(0) invert(1);
   opacity: 0.5;
